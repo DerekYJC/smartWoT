@@ -133,12 +133,12 @@
                   off: 'Off'
                 });
               });
-              $(function() {
-                $('#toggle-status').change(function() {
-                  sendAction("_setStatus",{"status": $(this).prop('checked')});
-                });
-              });
-            </script>
+          $(function() {
+            $('#toggle-status').change(function() {
+              sendAction("_setStatus",{"status": $(this).prop('checked')});
+            });
+          });
+        </script>
 
           </div>
 
@@ -258,28 +258,40 @@
           
 
 	  <script>
-	    var url = 'wss://ws.evrythng.com:443/thngs/'+thngId+'/properties?access_token='+key;
-	    var socket = new WebSocket(url); //#A 
-	    socket.onmessage = function (message) { //#B
-  	      var content = JSON.parse(message.data);
-  	      console.log('Property update : ', content[0]); //#C
-	      if (content[0].key === 'status') {
-  	        $('#value-'+content[0].key).html( content[0].value ); //#E 
-	        if (content[0].value === true) {
-		  updateCharts("status", 1);
-	 	  document.getElementById("value-status").innerHTML = "true";
-		  document.getElementById("led1").style.color = "LawnGreen";
-	        } else if (content[0].value === false) {
-		  updateCharts("status", 0);
-		  document.getElementById("value-status").innerHTML = "false";
-		  document.getElementById("led1").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url;
+	    $(function() {
+	    	url = 'wss://ws.evrythng.com:443/thngs/'+thngId+'/properties?access_token='+key;
+	    	init();
+	    });
+	    function init() { 
+	    	var socket = new WebSocket(url); //#A 
+	    	socket.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket.onmessage = function (message) { //#B
+  	      		var content = JSON.parse(message.data);
+  	      		console.log('Property update : ', content[0]); //#C
+	      		if (content[0].key === 'status') {
+  	        		$('#value-'+content[0].key).html( content[0].value ); //#E 
+	        		if (content[0].value === true) {
+		  		updateCharts("status", 1);
+	 	  		document.getElementById("value-status").innerHTML = "true";
+		  		document.getElementById("led1").style.color = "LawnGreen";
+	        		} else if (content[0].value === false) {
+		  		updateCharts("status", 0);
+		  		document.getElementById("value-status").innerHTML = "false";
+		  		document.getElementById("led1").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket.onclose = function () {
+	    		init();
+	    	};
+	    }
 //#A Subscribes to all properties of this Thng (via secure WebSockets) 
 //#B Each time we receive a WS message, this will be called 
 //#C We parse the message content (note: it's an array!)
