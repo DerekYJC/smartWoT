@@ -473,26 +473,40 @@
             </script>
 
 	  <script>
-	    var url_2 = 'wss://ws.evrythng.com:443/thngs/'+thngId_2+'/properties?access_token='+key;
-	    var socket_2 = new WebSocket(url_2); 
-	    socket_2.onmessage = function (message) { 
-  	      var content_2 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_2[0]); 
-	      if (content_2[0].key === 'status') {
-  	        $('#value-'+content_2[0].key+'_2').html( content_2[0].value ); 
-	        if (content_2[0].value === true) {
-		  document.getElementById("value-status_2").innerHTML = "true";
-		  document.getElementById("led2").style.color = "LawnGreen";
-	        } else if (content_2[0].value === false) {
-		  document.getElementById("value-status_2").innerHTML = "false";
-		  document.getElementById("led2").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_2.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_2;
+	    $(function() {
+	    	url_2 = 'wss://ws.evrythng.com:443/thngs/'+thngId_2+'/properties?access_token='+key;
+	    	init2();
+	    });
+	    function init2() { 
+	    	var socket_2 = new WebSocket(url_2); //#A 
+	    	socket_2.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_2.onmessage = function (message) { //#B
+  	      		var content_2 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_2[0]); //#C
+	      		if (content_2[0].key === 'status') {
+  	        		$('#value-'+content_2[0].key+'_2').html( content_2[0].value ); //#E 
+	        		if (content_2[0].value === true) {
+		  		updateCharts_2("status", 1);
+	 	  		document.getElementById("value-status_2").innerHTML = "true";
+		  		document.getElementById("led2").style.color = "LawnGreen";
+	        		} else if (content_2[0].value === false) {
+		  		updateCharts_2("status", 0);
+		  		document.getElementById("value-status_2").innerHTML = "false";
+		  		document.getElementById("led2").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_2.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_2.onclose = function () {
+	    		init2();
+	    	};
+	    }
  
             </script>
 
@@ -672,28 +686,40 @@
           
 
 	  <script>
-	    var url_3 = 'wss://ws.evrythng.com:443/thngs/'+thngId_3+'/properties?access_token='+key;
-	    var socket_3 = new WebSocket(url_3); 
-	    socket_3.onmessage = function (message) { 
-  	      var content_3 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_3[0]); 
-	      if (content_3[0].key === 'status') {
-  	        $('#value-'+content_3[0].key+'_3').html( content_3[0].value ); 
-	        if (content_3[0].value === true) {
-		  updateCharts_3("status", 1);
-	 	  document.getElementById("value-status_3").innerHTML = "true";
-		  document.getElementById("led3").style.color = "LawnGreen";
-	        } else if (content_3[0].value === false) {
-		  updateCharts_3("status", 0);
-		  document.getElementById("value-status_3").innerHTML = "false";
-		  document.getElementById("led3").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_3.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_3;
+	    $(function() {
+	    	url_3 = 'wss://ws.evrythng.com:443/thngs/'+thngId_3+'/properties?access_token='+key;
+	    	init3();
+	    });
+	    function init3() { 
+	    	var socket_3 = new WebSocket(url_3); //#A 
+	    	socket_3.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_3.onmessage = function (message) { //#B
+  	      		var content_3 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_3[0]); //#C
+	      		if (content_3[0].key === 'status') {
+  	        		$('#value-'+content_3[0].key+'_3').html( content_3[0].value ); //#E 
+	        		if (content_3[0].value === true) {
+		  		updateCharts_3("status", 1);
+	 	  		document.getElementById("value-status_3").innerHTML = "true";
+		  		document.getElementById("led3").style.color = "LawnGreen";
+	        		} else if (content_3[0].value === false) {
+		  		updateCharts_3("status", 0);
+		  		document.getElementById("value-status_3").innerHTML = "false";
+		  		document.getElementById("led3").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_3.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_3.onclose = function () {
+	    		init3();
+	    	};
+	    }
  
             </script>
 
@@ -865,26 +891,40 @@
             </script>
 
 	  <script>
-	    var url_4 = 'wss://ws.evrythng.com:443/thngs/'+thngId_4+'/properties?access_token='+key;
-	    var socket_4 = new WebSocket(url_4); 
-	    socket_4.onmessage = function (message) { 
-  	      var content_4 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_4[0]); 
-	      if (content_4[0].key === 'status') {
-  	        $('#value-'+content_4[0].key+'_4').html( content_4[0].value ); 
-	        if (content_4[0].value === true) {
-		  document.getElementById("value-status_4").innerHTML = "true";
-		  document.getElementById("led4").style.color = "LawnGreen";
-	        } else if (content_4[0].value === false) {
-		  document.getElementById("value-status_4").innerHTML = "false";
-		  document.getElementById("led4").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_4.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_4;
+	    $(function() {
+	    	url_4 = 'wss://ws.evrythng.com:443/thngs/'+thngId_4+'/properties?access_token='+key;
+	    	init4();
+	    });
+	    function init4() { 
+	    	var socket_4 = new WebSocket(url_4); //#A 
+	    	socket_4.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_4.onmessage = function (message) { //#B
+  	      		var content_4 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_4[0]); //#C
+	      		if (content_4[0].key === 'status') {
+  	        		$('#value-'+content_4[0].key+'_4').html( content_4[0].value ); //#E 
+	        		if (content_4[0].value === true) {
+		  		updateCharts_4("status", 1);
+	 	  		document.getElementById("value-status_4").innerHTML = "true";
+		  		document.getElementById("led4").style.color = "LawnGreen";
+	        		} else if (content_4[0].value === false) {
+		  		updateCharts_4("status", 0);
+		  		document.getElementById("value-status_4").innerHTML = "false";
+		  		document.getElementById("led4").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_4.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_4.onclose = function () {
+	    		init4();
+	    	};
+	    }
  
             </script>
 
@@ -1064,28 +1104,40 @@
           
 
 	  <script>
-	    var url_5 = 'wss://ws.evrythng.com:443/thngs/'+thngId_5+'/properties?access_token='+key;
-	    var socket_5 = new WebSocket(url_5); 
-	    socket_5.onmessage = function (message) { 
-  	      var content_5 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_5[0]); 
-	      if (content_5[0].key === 'status') {
-  	        $('#value-'+content_5[0].key+'_5').html( content_5[0].value ); 
-	        if (content_5[0].value === true) {
-		  updateCharts_5("status", 1);
-	 	  document.getElementById("value-status_5").innerHTML = "true";
-		  document.getElementById("led5").style.color = "LawnGreen";
-	        } else if (content_5[0].value === false) {
-		  updateCharts_5("status", 0);
-		  document.getElementById("value-status_5").innerHTML = "false";
-		  document.getElementById("led5").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_5.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_5;
+	    $(function() {
+	    	url_5 = 'wss://ws.evrythng.com:443/thngs/'+thngId_5+'/properties?access_token='+key;
+	    	init5();
+	    });
+	    function init5() { 
+	    	var socket_5 = new WebSocket(url_5); //#A 
+	    	socket_5.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_5.onmessage = function (message) { //#B
+  	      		var content_5 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_5[0]); //#C
+	      		if (content_5[0].key === 'status') {
+  	        		$('#value-'+content_5[0].key+'_5').html( content_5[0].value ); //#E 
+	        		if (content_5[0].value === true) {
+		  		updateCharts_5("status", 1);
+	 	  		document.getElementById("value-status_5").innerHTML = "true";
+		  		document.getElementById("led5").style.color = "LawnGreen";
+	        		} else if (content_5[0].value === false) {
+		  		updateCharts_5("status", 0);
+		  		document.getElementById("value-status_5").innerHTML = "false";
+		  		document.getElementById("led5").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_5.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_5.onclose = function () {
+	    		init5();
+	    	};
+	    }
  
             </script>
 
@@ -1257,26 +1309,40 @@
             </script>
 
 	  <script>
-	    var url_6 = 'wss://ws.evrythng.com:443/thngs/'+thngId_6+'/properties?access_token='+key;
-	    var socket_6 = new WebSocket(url_6); 
-	    socket_6.onmessage = function (message) { 
-  	      var content_6 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_6[0]); 
-	      if (content_6[0].key === 'status') {
-  	        $('#value-'+content_6[0].key+'_6').html( content_6[0].value ); 
-	        if (content_6[0].value === true) {
-		  document.getElementById("value-status_6").innerHTML = "true";
-		  document.getElementById("led6").style.color = "LawnGreen";
-	        } else if (content_6[0].value === false) {
-		  document.getElementById("value-status_6").innerHTML = "false";
-		  document.getElementById("led6").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_6.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_6;
+	    $(function() {
+	    	url_6 = 'wss://ws.evrythng.com:443/thngs/'+thngId_6+'/properties?access_token='+key;
+	    	init6();
+	    });
+	    function init6() { 
+	    	var socket_6 = new WebSocket(url_6); //#A 
+	    	socket_6.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_6.onmessage = function (message) { //#B
+  	      		var content_6 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_6[0]); //#C
+	      		if (content_6[0].key === 'status') {
+  	        		$('#value-'+content_6[0].key+'_6').html( content_6[0].value ); //#E 
+	        		if (content_6[0].value === true) {
+		  		updateCharts_6("status", 1);
+	 	  		document.getElementById("value-status_6").innerHTML = "true";
+		  		document.getElementById("led6").style.color = "LawnGreen";
+	        		} else if (content_6[0].value === false) {
+		  		updateCharts_6("status", 0);
+		  		document.getElementById("value-status_6").innerHTML = "false";
+		  		document.getElementById("led6").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_6.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_6.onclose = function () {
+	    		init6();
+	    	};
+	    }
  
             </script>
 
@@ -1456,28 +1522,40 @@
           
 
 	  <script>
-	    var url_7 = 'wss://ws.evrythng.com:443/thngs/'+thngId_7+'/properties?access_token='+key;
-	    var socket_7 = new WebSocket(url_7); 
-	    socket_7.onmessage = function (message) { 
-  	      var content_7 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_7[0]); 
-	      if (content_7[0].key === 'status') {
-  	        $('#value-'+content_7[0].key+'_7').html( content_7[0].value ); 
-	        if (content_7[0].value === true) {
-		  updateCharts_7("status", 1);
-	 	  document.getElementById("value-status_7").innerHTML = "true";
-		  document.getElementById("led7").style.color = "LawnGreen";
-	        } else if (content_7[0].value === false) {
-		  updateCharts_7("status", 0);
-		  document.getElementById("value-status_7").innerHTML = "false";
-		  document.getElementById("led7").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_7.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_7;
+	    $(function() {
+	    	url_7 = 'wss://ws.evrythng.com:443/thngs/'+thngId_7+'/properties?access_token='+key;
+	    	init7();
+	    });
+	    function init7() { 
+	    	var socket_7 = new WebSocket(url_7); //#A 
+	    	socket_7.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_7.onmessage = function (message) { //#B
+  	      		var content_7 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_7[0]); //#C
+	      		if (content_7[0].key === 'status') {
+  	        		$('#value-'+content_7[0].key+'_7').html( content_7[0].value ); //#E 
+	        		if (content_7[0].value === true) {
+		  		updateCharts_7("status", 1);
+	 	  		document.getElementById("value-status_7").innerHTML = "true";
+		  		document.getElementById("led7").style.color = "LawnGreen";
+	        		} else if (content_7[0].value === false) {
+		  		updateCharts_7("status", 0);
+		  		document.getElementById("value-status_7").innerHTML = "false";
+		  		document.getElementById("led7").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_7.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_7.onclose = function () {
+	    		init7();
+	    	};
+	    }
  
             </script>
 
@@ -1649,26 +1727,40 @@
             </script>
 
 	  <script>
-	    var url_8 = 'wss://ws.evrythng.com:443/thngs/'+thngId_8+'/properties?access_token='+key;
-	    var socket_8 = new WebSocket(url_8); 
-	    socket_8.onmessage = function (message) { 
-  	      var content_8 = JSON.parse(message.data);
-  	      console.log('Property update : ', content_8[0]); 
-	      if (content_8[0].key === 'status') {
-  	        $('#value-'+content_8[0].key+'_8').html( content_8[0].value ); 
-	        if (content_8[0].value === true) {
-		  document.getElementById("value-status_8").innerHTML = "true";
-		  document.getElementById("led8").style.color = "LawnGreen";
-	        } else if (content_8[0].value === false) {
-		  document.getElementById("value-status_8").innerHTML = "false";
-		  document.getElementById("led8").style.color = "grey";
-	        }
-	      }
-	    };
-	    socket_8.onerror = function (error) {
-    	      console.log('An error occurred while trying to connect to a WebSocket!');
-    	      console.log(error);
-	    };
+	    var url_8;
+	    $(function() {
+	    	url_8 = 'wss://ws.evrythng.com:443/thngs/'+thngId_8+'/properties?access_token='+key;
+	    	init8();
+	    });
+	    function init8() { 
+	    	var socket_8 = new WebSocket(url_8); //#A 
+	    	socket_8.onopen = function () {
+	    		console.log('Open the connection');
+	    	}
+	    	socket_8.onmessage = function (message) { //#B
+  	      		var content_8 = JSON.parse(message.data);
+  	      		console.log('Property update : ', content_8[0]); //#C
+	      		if (content_8[0].key === 'status') {
+  	        		$('#value-'+content_8[0].key+'_8').html( content_8[0].value ); //#E 
+	        		if (content_8[0].value === true) {
+		  		updateCharts_8("status", 1);
+	 	  		document.getElementById("value-status_8").innerHTML = "true";
+		  		document.getElementById("led8").style.color = "LawnGreen";
+	        		} else if (content_8[0].value === false) {
+		  		updateCharts_8("status", 0);
+		  		document.getElementById("value-status_8").innerHTML = "false";
+		  		document.getElementById("led8").style.color = "grey";
+	        		}
+	      		}
+	    	};
+	    	socket_8.onerror = function (error) {
+    	      	console.log('An error occurred while trying to connect to a WebSocket!');
+    	      	console.log(error);
+	    	};
+	    	socket_8.onclose = function () {
+	    		init8();
+	    	};
+	    }
  
             </script>
 
